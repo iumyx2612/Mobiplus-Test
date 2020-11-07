@@ -39,7 +39,7 @@ public class MonsterController : MonoBehaviour
             GameObject newMonster = Instantiate(level1Monster, position, Quaternion.identity) as GameObject;
             newMonster.transform.parent = monsterContainer.transform;
             monstersOnScreen.Add(newMonster);
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(5f);
         }
     }
 
