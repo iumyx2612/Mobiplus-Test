@@ -9,9 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 15a3f7217d792114e93e345a8c991351, type: 3}
-  m_Name: Level 3
+  m_Script: {fileID: 11500000, guid: 2ae506bffdb236a43911cc6145636902, type: 3}
+  m_Name: Monster Particle
   m_EditorClassIdentifier: 
-  level: 3
-  money: 3
-  monsterSprite: {fileID: 21300000, guid: ef26302bb8b1b9d478c0e41b6b498ce2, type: 3}
+  particleSystem: {fileID: 0}

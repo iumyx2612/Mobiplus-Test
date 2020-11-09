@@ -9,6 +9,7 @@ public class Monster : MonoBehaviour
     public int level;
     public Text moneyText;
     public Image artwork;
+    public ParticleSystem monsterParticleSystem;
     public List<Text> tempTextList;
 
     private void Awake()
@@ -16,6 +17,7 @@ public class Monster : MonoBehaviour
         level = monsterData.level;
         moneyText.text = monsterData.money.ToString();
         artwork.sprite = monsterData.monsterSprite;
+        monsterParticleSystem = monsterData.monsterParticle.particleSystem;
         tempTextList = new List<Text>();
     }
     // Start is called before the first frame update

@@ -5,7 +5,7 @@ using UnityEngine;
 public class MonsterController : MonoBehaviour
 {
     [SerializeField]
-    private List<GameObject> monsters;
+    private List<GameObject> monsters = new List<GameObject>();
     private Monster monster;
     [SerializeField]
     private GameObject level1Monster;
@@ -68,6 +68,7 @@ public class MonsterController : MonoBehaviour
                         monstersOnScreen.RemoveAt(i);
                         monstersOnScreen.RemoveAt(i);
                         newMonster.SetActive(true);
+                        Instantiate(newMonster.GetComponent<Monster>().monsterParticleSystem, newMonster.transform);
                         break;
                     }                    
                 }
