@@ -5,6 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Monster", menuName = "Monster/Monster Data")]
 public class MonsterData : ScriptableObject
 {
+    public string monsterName;
     public int level;
     public int money;
     public Sprite monsterSprite;

@@ -10,8 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 15a3f7217d792114e93e345a8c991351, type: 3}
-  m_Name: Level 3
+  m_Name: Level 4 (2)
   m_EditorClassIdentifier: 
-  level: 3
-  money: 3
-  monsterSprite: {fileID: 21300000, guid: ef26302bb8b1b9d478c0e41b6b498ce2, type: 3}
+  monsterName: A4 (2)
+  level: 4
+  money: 4
+  monsterSprite: {fileID: 21300000, guid: 9ccb29bb58e72344999d66f598826d6d, type: 3}
+  monsterParticle: {fileID: 11400000, guid: f2ab9bcdad603e74ba1aa1add5b6593e, type: 2}
