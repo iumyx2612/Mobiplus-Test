@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Particle System", menuName = "Monster/Particle")]
+[CreateAssetMenu(fileName = "New Particle", menuName = "Monster/Monster Particle")]
 public class MonsterParticle : ScriptableObject
 {
     public ParticleSystem particleSystem;

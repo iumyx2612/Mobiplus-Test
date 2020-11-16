@@ -16,4 +16,4 @@ MonoBehaviour:
   level: 3
   money: 3
   monsterSprite: {fileID: 21300000, guid: ef26302bb8b1b9d478c0e41b6b498ce2, type: 3}
-  monsterParticle: {fileID: 11400000, guid: f2ab9bcdad603e74ba1aa1add5b6593e, type: 2}
+  monsterParticle: {fileID: 11400000, guid: e53afefcdcd7d3141a53bb2de47f0f62, type: 2}

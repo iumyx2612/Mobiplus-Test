@@ -3,28 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class MonsterChooser : MonoBehaviour
-{   
-    public int characterChoice;
+{
+    public GameObject lv4Canvas;
+    public int choice;
 
-    private void Start()
+    private void Awake()
     {
         Time.timeScale = 0f;
+        PlayerPrefs.GetInt("Lv4 Chooser");
     }
 
-    public void A4_1Confirm()
+    public void MonsterSelect(int _choice)
     {
-        Debug.Log("A4(1)");
-        characterChoice = 0;
-        PlayerPrefs.SetInt("Chosen lv4", characterChoice);
-        gameObject.SetActive(false);
-        Time.timeScale = 1f;
-    }
-    public void A4_2Confirm()
-    {
-        Debug.Log("A4(2)");
-        characterChoice = 1;
-        PlayerPrefs.SetInt("Chosen lv4", characterChoice);
-        gameObject.SetActive(false);
+        PlayerPrefs.SetInt("Lv4 Chooser", _choice);
+        lv4Canvas.SetActive(false);
         Time.timeScale = 1f;
     }
 }

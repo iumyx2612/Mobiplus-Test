@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2ae506bffdb236a43911cc6145636902, type: 3}
-  m_Name: Monster Particle
+  m_Name: MonsterParticle
   m_EditorClassIdentifier: 
   particleSystem: {fileID: 3842840205288202718, guid: 2a26550bbebb3534a91c1ba7fe435719,
     type: 3}

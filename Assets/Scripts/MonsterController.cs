@@ -4,79 +4,61 @@ using UnityEngine;
 
 public class MonsterController : MonoBehaviour
 {
-    [SerializeField]
-    private List<GameObject> monsters = new List<GameObject>();
-    private Monster monster;
-    [SerializeField]
-    private GameObject level1Monster;
-    private GameObject monsterContainer;
-    private List<GameObject> monstersOnScreen = new List<GameObject>();
-    private List<int> levels = new List<int>();
+    public List<MonsterData> monsterDatas = new List<MonsterData>();
+    public GameObject monster;
+    public GameObject monsterContainer;
+    public List<GameObject> monstersOnScreen = new List<GameObject>();
+    public List<int> levels = new List<int>();
 
-    [SerializeField]
-    private GameObject monsterCanvas;
+    public GameObject newMonsterInfo;
 
-    [SerializeField]
-    private GameObject lv4Canvas;
-    public int characterChoice;
+    public GameObject lv4Canvas;
+    public List<MonsterData> lv4s = new List<MonsterData>();
+    public int choice;
     public bool hasActivated = false;
-    [SerializeField]
-    private List<GameObject> lv4s = new List<GameObject>();
 
-    public bool gameisPause = false;
-    // Start is called before the first frame update
-    private void Awake()
+    private void Start()
     {
-        monsterContainer = GameObject.Find("Monster Container");
-    }
-    void Start()
-    {
-        StartCoroutine(MonsterSpawn());
+        StartCoroutine(lv1Spawner());
     }
 
-    // Update is called once per frame
-    void FixedUpdate()
+    private void Update()
     {
         if (monstersOnScreen.Count >= 2)
         {
             for (int i = 0; i < monstersOnScreen.Count - 1; i++)
             {
-                int levelCheck = monstersOnScreen[i].GetComponent<Monster>().level;
+                int levelCheck = monstersOnScreen[i].GetComponent<Monster>().level;               
                 for (int j = i + 1; j < monstersOnScreen.Count; j++)
-                {
-                    if (monstersOnScreen[j].GetComponent<Monster>().level == levelCheck)
-                    {
+                {             
+                    if(monstersOnScreen[j].GetComponent<Monster>().level == levelCheck)
+                    {                        
                         if (levelCheck == 3)
                         {
-                            if (!hasActivated)
+                            if(!hasActivated)
                             {
                                 lv4Canvas.SetActive(true);
                                 hasActivated = true;
-                            }
-                            characterChoice = PlayerPrefs.GetInt("Chosen lv4");
-                            Vector3 position = new Vector3(monsterContainer.transform.position.x + Random.Range(-4, 4), monsterContainer.transform.position.y, transform.position.z);
-                            GameObject newMonster = Instantiate(lv4s[characterChoice], position, Quaternion.identity);
-                            newMonster.transform.parent = monsterContainer.transform;
-                            newMonster.SetActive(false);
-                            monstersOnScreen.Add(newMonster);
-                            DestroyMonsters(monstersOnScreen[i], monstersOnScreen[j], newMonster);
-                            monstersOnScreen.RemoveAt(i);
-                            monstersOnScreen.RemoveAt(i);
-                            if (!levels.Contains(levelCheck))
-                            {
+                                choice = PlayerPrefs.GetInt("Lv4 Chooser");
+                                Vector3 position = new Vector3(monsterContainer.transform.position.x + Random.Range(-4, 4), monsterContainer.transform.position.y, transform.position.z);
+                                GameObject newMonster = Instantiate(monster, position, Quaternion.identity);
+                                newMonster.GetComponent<Monster>().LoadMonsterData(lv4s[choice]);
+                                newMonster.transform.parent = monsterContainer.transform;
+                                newMonster.SetActive(false);
+                                monstersOnScreen.Add(newMonster);
+                                DestroyMonsters(monstersOnScreen[i], monstersOnScreen[j], newMonster);
+                                monstersOnScreen.RemoveAt(i);
+                                monstersOnScreen.RemoveAt(i);
                                 levels.Add(levelCheck);
-                                //monsterCanvas.SetActive(true);
-                                //FindObjectOfType<MonsterDisplay>().monster = newMonster.GetComponent<Monster>();
-                                //Time.timeScale = 0f;
-                                CanvasActive(newMonster);
-                            }
-                            Instantiate(newMonster.GetComponent<Monster>().monsterParticleSystem, newMonster.transform);
-                            break;
-                        }
-                        else
+                                CanvasActive(lv4s[choice]);
+                                monsterDatas.Add(lv4s[choice]);
+                                break;
+                            }                            
+                        }                        
                         {
                             Vector3 position = new Vector3(monsterContainer.transform.position.x + Random.Range(-4, 4), monsterContainer.transform.position.y, transform.position.z);
-                            GameObject newMonster = Instantiate(monsters[levelCheck], position, Quaternion.identity);
+                            GameObject newMonster = Instantiate(monster, position, Quaternion.identity);
+                            newMonster.GetComponent<Monster>().LoadMonsterData(monsterDatas[levelCheck]);
                             newMonster.transform.parent = monsterContainer.transform;
                             newMonster.SetActive(false);
                             monstersOnScreen.Add(newMonster);
@@ -86,31 +68,26 @@ public class MonsterController : MonoBehaviour
                             if (!levels.Contains(levelCheck))
                             {
                                 levels.Add(levelCheck);
-                                //monsterCanvas.SetActive(true);
-                                //FindObjectOfType<MonsterDisplay>().monster = newMonster.GetComponent<Monster>();
-                                //Time.timeScale = 0f;
-                                CanvasActive(newMonster);
+                                CanvasActive(monsterDatas[levelCheck]);
                             }
-                            Instantiate(newMonster.GetComponent<Monster>().monsterParticleSystem, newMonster.transform);
                             break;
                         }
-                    }
                         
+                    }
                 }
             }
         }
     }
 
-    IEnumerator MonsterSpawn()
+    IEnumerator lv1Spawner()
     {
-        while (true)
+        while(true)
         {
-            Vector3 position = new Vector3(monsterContainer.transform.position.x + Random.Range(-4, 4), monsterContainer.transform.position.y, transform.position.z);
-            GameObject newMonster = Instantiate(level1Monster, position, Quaternion.identity) as GameObject;
-            newMonster.transform.parent = monsterContainer.transform;
-            monstersOnScreen.Add(newMonster);
-            yield return new WaitForSeconds(1f);
-        }
+            GameObject lv1Monster = Instantiate(monster, monsterContainer.transform);
+            lv1Monster.GetComponent<Monster>().LoadMonsterData(monsterDatas[0]);
+            monstersOnScreen.Add(lv1Monster);
+            yield return new WaitForSeconds(2f);
+        }        
     }
 
     void DestroyMonsters(GameObject monster1, GameObject monster2, GameObject newMonster)
@@ -120,11 +97,10 @@ public class MonsterController : MonoBehaviour
         newMonster.SetActive(true);
     }
 
-    void CanvasActive(GameObject _monster)
-    {
-        monsterCanvas.SetActive(true);
-        FindObjectOfType<MonsterDisplay>().monster = _monster.GetComponent<Monster>();
+    void CanvasActive(MonsterData monsterData)
+    {        
+        newMonsterInfo.SetActive(true);
+        FindObjectOfType<MonsterDisplay>().monsterData = monsterData;   
         Time.timeScale = 0f;
     }
 }
-

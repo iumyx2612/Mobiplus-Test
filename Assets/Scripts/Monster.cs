@@ -14,16 +14,23 @@ public class Monster : MonoBehaviour
 
     private void Awake()
     {
+        
+    }
+    // Start is called before the first frame update
+    void Start()
+    {        
+        tempTextList = new List<Text>();
+        moneyText.gameObject.SetActive(false);
+    }
+
+    public void LoadMonsterData(MonsterData monsterData)
+    {
+        gameObject.name = monsterData.monsterName;
         level = monsterData.level;
         moneyText.text = monsterData.money.ToString();
         artwork.sprite = monsterData.monsterSprite;
         monsterParticleSystem = monsterData.monsterParticle.particleSystem;
-        tempTextList = new List<Text>();
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-        moneyText.gameObject.SetActive(false);        
+        Instantiate(monsterParticleSystem, transform);
     }
     
     private void OnMouseDown()
@@ -36,12 +43,7 @@ public class Monster : MonoBehaviour
             tempTextList.Add(tempText);
             Invoke("TextDisappear", 0.5f);
         }
-    }
-
-    private void Update()
-    {
-        
-    }
+    }    
 
     void TextDisappear()
     {
